@@ -1,0 +1,1 @@
+I trained this model used knn and kfold cross validation
