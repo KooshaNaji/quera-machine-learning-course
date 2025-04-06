@@ -17,13 +17,13 @@ class PreprocessingKoosha:
     
     def frequency_encoding(self, target_feature):
         feature_freq = self.train_data[target_feature].value_counts() / len(self.train_data)
-        feature_freq_dict = feature_freq.to_dict()  # Convert to dictionary to avoid mapping issues
+        feature_freq_dict = feature_freq.to_dict()  
         self.train_data[target_feature] = self.train_data[target_feature].map(feature_freq_dict)
         self.test_data[target_feature] = self.test_data[target_feature].map(feature_freq_dict).fillna(0)
 
     def feature_pairwise_corr(self, threshold):
         corr_matrix = self.train_data.corr().abs()
-        upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))  # Fixed here
+        upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))  
         to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
         
         for i in to_drop:
